@@ -10,5 +10,6 @@ dependencies = [
     "pandas==2.2.3",
     "scikit-learn==1.5.2",
     "torch==2.5.1",
-    "transformers[torch]==4.46.3"
+    "tqdm>=4.67.0",
+    "transformers[torch]==4.46.3",
 ]
