@@ -1,0 +1,14 @@
+[project]
+name = "persuasion-rag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = "==3.12.7"
+dependencies = [
+    "datasets==3.1.0",
+    "jupyter==1.1.1",
+    "pandas==2.2.3",
+    "scikit-learn==1.5.2",
+    "torch==2.5.1",
+    "transformers[torch]==4.46.3",
+]
