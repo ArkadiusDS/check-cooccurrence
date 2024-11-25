@@ -1236,6 +1236,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "datasets" },
     { name = "jupyter" },
+    { name = "jupyterlab" },
     { name = "pandas" },
     { name = "scikit-learn" },
     { name = "torch" },
@@ -1247,6 +1248,7 @@ dependencies = [
 requires-dist = [
     { name = "datasets", specifier = "==3.1.0" },
     { name = "jupyter", specifier = "==1.1.1" },
+    { name = "jupyterlab", specifier = ">=4.3.1" },
     { name = "pandas", specifier = "==2.2.3" },
     { name = "scikit-learn", specifier = "==1.5.2" },
     { name = "torch", specifier = "==2.5.1" },
