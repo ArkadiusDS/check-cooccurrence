@@ -13,28 +13,28 @@ from sklearn.model_selection import train_test_split
 
 transformers.set_seed(123)
 
-vectorstore = pd.read_csv("data/vs/en/vectorestore_random_english.csv")
-train_data, validation_data = train_test_split(vectorstore, test_size=0.30, random_state=42)
+train_data = pd.read_csv("train_persuasion_en.csv")
+validation_data = pd.read_csv("dev_persuasion_en.csv")
 validation_data, test_data = train_test_split(validation_data, test_size=0.30, random_state=42)
 
 model = AutoModelForSequenceClassification.from_pretrained("google-bert/bert-large-uncased")
 tokenizer = AutoTokenizer.from_pretrained("google-bert/bert-large-uncased")
 
 train_encodings = tokenizer(
-    train_data['article'].tolist(),
+    train_data['text'].tolist(),
     truncation=True,
     padding=True,
     max_length=512
 )
 val_encodings = tokenizer(
-    validation_data['article'].tolist(),
+    validation_data['text'].tolist(),
     truncation=True,
     padding=True,
     max_length=512
 )
 
-train_dataset = PersuasionDataset(train_encodings, train_data['persuasion'].tolist())
-val_dataset = PersuasionDataset(val_encodings, validation_data['persuasion'].tolist())
+train_dataset = PersuasionDataset(train_encodings, train_data['is_persuasion'].tolist())
+val_dataset = PersuasionDataset(val_encodings, validation_data['is_persuasion'].tolist())
 
 hyper_parameters_dict = {
     "evaluation_strategy": "steps",
@@ -91,11 +91,11 @@ print("######################## Unseen data evaluation #########################
 
 model = AutoModelForSequenceClassification.from_pretrained(model_saved_path)
 
-test_data["predictions"] = test_data.article.apply(
+test_data["predictions"] = test_data.text.apply(
                 lambda x: predict_persuasion(x, tokenizer, model)
             )
 
-evaluation_results = compute_metrics_for_test_data(test_data.persuasion, test_data["predictions"])
+evaluation_results = compute_metrics_for_test_data(test_data.is_persuasion, test_data["predictions"])
 # Save evaluation metrics to a JSON file
 output_file_path = "output/test_metrics.json"
 
