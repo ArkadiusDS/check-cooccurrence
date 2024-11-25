@@ -1,6 +1,8 @@
 """
 Helper functions
 """
+import itertools
+
 import numpy as np
 import torch
 from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score, classification_report, \
@@ -80,3 +82,8 @@ def compute_metrics_for_test_data(y_true, y_pred):
     }
 
     return metrics
+
+
+def cartesian_product(hyperparameters):
+    """ Returns cartesian product of all hyperparameters given in dictionary of lists"""
+    return (dict(zip(hyperparameters.keys(), values)) for values in itertools.product(*hyperparameters.values()))
